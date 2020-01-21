@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/mjpalacios25/Developer-Profile-Generator#readme",
   "dependencies": {
+    "axios": "^0.19.1",
     "electron": "^7.1.9",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "inquire": "^0.4.8",
+    "util": "^0.12.1"
   }
 }
