@@ -2,9 +2,7 @@ const fs = require('fs');
 const util = require("util");
 const inquirer = require('inquirer');
 const axios = require('axios');
-//onst electronPDF = require('electron-pdf');
-//const pdfGenerator = new electronPDF();
-
+const convertFactory = require('electron-html-to');
 const writeFileAsync = util.promisify(fs.writeFile);
 
 function promptUser() {
@@ -40,7 +38,7 @@ function promptUser() {
       <title>Document</title>
     </head>
     <body>
-      <div class="jumbotron">
+      <div class="jumbotron" style="background-color: ${answers.favColor};">
           <div class="container rounded">
               <div class="text-center"><img src="${gitInfo.data[0].owner.avatar_url}" alt="" class = "rounded-circle"></div>
               <h1 class="display-4 text-center">Hi! My name is ${answers.name}</h1>
@@ -55,12 +53,12 @@ function promptUser() {
     <h4 class="text-center">${userInfo.data.bio}</h4>
     <div class="container">
         <div class="row mx-md-n5 my-4">
-            <div class="col px-md-5 text-center "><div class="p-3 border" style="background-color: ${answers.favColor};"><p>Public Repositories</p> <p>${gitInfo.data.length}</p></div></div>
-            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><p>Followers</p> <p>${followerResponse.data.length}</p></div></div>
+            <div class="col px-md-5 text-center "><div class="p-3 border" style="background-color: ${answers.favColor};"><h4>Public Repositories</h4> <h4>${gitInfo.data.length}</h4></div></div>
+            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><h4>Followers</h4> <h4>${followerResponse.data.length}</h4></div></div>
         </div>
         <div class="row mx-md-n5">
-            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><p>Git Hub Stars</p> <p>${starredResponse.data.length}</p></div></div>
-            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><p>Following</p> <p>${followingResponse.data.length}</p></div></div>
+            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><h4>Git Hub Stars</h4> <h4>${starredResponse.data.length}</h4></div></div>
+            <div class="col px-md-5 text-center"><div class="p-3 border" style="background-color: ${answers.favColor};"><h4>Following</h4> <h4>${followingResponse.data.length}</h4></div></div>
         </div>
 
   
@@ -92,9 +90,22 @@ async function getData(answers){
         const html = await generateHTML(gitInfo, followerResponse, followingResponse, starredResponse, userInfo, mapsURL, userURL, answers);
         await writeFileAsync("index.html", html);
         console.log("Successfully wrote to 'index.html' file");
-
-        //await pdfGenerator("index.html", "index.pdf")
         
+        var conversion = await convertFactory({
+            converterPath: convertFactory.converters.PDF,
+            allowLocalFilesAccess: true,
+          });
+        await conversion(html, function(err, result){
+            if (err) {
+                return console.error(err);
+              }
+
+            console.log(result.numberOfPages);
+            console.log(result.logs);
+            result.stream.pipe(fs.createWriteStream('./profile.pdf'));
+        })
+
+
     } catch (err) {
         console.log(err);
       }
@@ -103,4 +114,4 @@ async function getData(answers){
 
 promptUser().then(function(answers){
     getData(answers);
-});
+})
