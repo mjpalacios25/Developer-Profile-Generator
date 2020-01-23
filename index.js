@@ -35,7 +35,7 @@ function promptUser() {
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></div>
       <link rel="stylesheet" href="./assets/style.css">
       <script src="https://kit.fontawesome.com/f674c96901.js" crossorigin="anonymous"></script>
-      <title>Document</title>
+      <title>My Profile</title>
     </head>
     <body>
       <div class="jumbotron" style="background-color: ${answers.favColor};">
@@ -95,7 +95,7 @@ async function getData(answers){
             converterPath: convertFactory.converters.PDF,
             allowLocalFilesAccess: true,
           });
-        await conversion(html, function(err, result){
+        await conversion({html: html}, function(err, result){
             if (err) {
                 return console.error(err);
               }
