@@ -3,6 +3,7 @@ const util = require("util");
 const inquirer = require('inquirer');
 const axios = require('axios');
 const convertFactory = require('electron-html-to');
+
 const writeFileAsync = util.promisify(fs.writeFile);
 
 function promptUser() {
@@ -36,6 +37,12 @@ function promptUser() {
       <link rel="stylesheet" href="./assets/style.css">
       <script src="https://kit.fontawesome.com/f674c96901.js" crossorigin="anonymous"></script>
       <title>My Profile</title>
+      <style>
+          body {
+              -webkit-print-color-adjust: exact !important ;
+              
+          }
+      </style>
     </head>
     <body>
       <div class="jumbotron" style="background-color: ${answers.favColor};">
@@ -91,11 +98,11 @@ async function getData(answers){
         await writeFileAsync("index.html", html);
         console.log("Successfully wrote to 'index.html' file");
         
-        var conversion = await convertFactory({
+        var conversion = convertFactory({
             converterPath: convertFactory.converters.PDF,
             allowLocalFilesAccess: true,
           });
-        await conversion({html: html}, function(err, result){
+         conversion({html: html}, function(err, result){
             if (err) {
                 return console.error(err);
               }
@@ -114,4 +121,4 @@ async function getData(answers){
 
 promptUser().then(function(answers){
     getData(answers);
-})
+});

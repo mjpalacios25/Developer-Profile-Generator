@@ -8,12 +8,6 @@
       <link rel="stylesheet" href="./assets/style.css">
       <script src="https://kit.fontawesome.com/f674c96901.js" crossorigin="anonymous"></script>
       <title>My Profile</title>
-      <style>
-          body {
-              -webkit-print-color-adjust: exact !important ;
-              
-          }
-      </style>
     </head>
     <body>
       <div class="jumbotron" style="background-color: green;">
