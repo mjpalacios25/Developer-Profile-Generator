@@ -29,4 +29,4 @@ https://mjpalacios25.github.io/Developer-Profile-Generator/
 
 ## Application Demo
 
-![](assets/Developer Profile Generator .gif)
+![](assets/Generator.gif)
