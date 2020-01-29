@@ -27,6 +27,6 @@ This is a command line application that builds a profile page populated by infor
 Direct link to site:
 https://mjpalacios25.github.io/Developer-Profile-Generator/
 
-## Image of Website
+## Application Demo
 
-<img width="1433" alt="image" src="https://user-images.githubusercontent.com/52770466/72953735-14033580-3d64-11ea-9775-90b70ba37375.png"> 
+![](assets/Developer Profile Generator .gif)

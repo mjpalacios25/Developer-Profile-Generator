@@ -107,8 +107,8 @@ async function getData(answers){
                 return console.error(err);
               }
 
-            console.log(result.numberOfPages);
-            console.log(result.logs);
+            //console.log(result.numberOfPages);
+            //console.log(result.logs);
             result.stream.pipe(fs.createWriteStream('./profile.pdf'));
         })
 
