@@ -18,7 +18,7 @@
   "homepage": "https://github.com/mjpalacios25/Developer-Profile-Generator#readme",
   "dependencies": {
     "axios": "^0.19.1",
-    "electron": "^5.0.12",
+    "electron": "^15.5.5",
     "electron-html-to": "^2.6.0",
     "electron-pdf": "^4.0.8",
     "fs": "0.0.1-security",
